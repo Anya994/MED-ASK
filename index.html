@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link rel="stylesheet" href="css/style.css">
+      <title>Document</title>
+      <script src=""></script>
+   </head>
+   <body>
+      <div class="main">
+         <div class="buttons-block">
+            <h1>Проверка услуг медицинского страхования</h1>
+            <div class="policy-type">
+               <button class="insurance-type" id="buttonOMS">ОМС</button>
+               <button class="insurance-type" id="buttonDMS">ДМС</button>
+            </div>
+         </div>
+         <div class="block2">
+            <input type="text" id="textNum" class="textNum" placeholder="Введите номер полиса" oninput="getInfoByNumber(this.value);"/>
+            <select id="insurance-company" placeholder="выбрите страховую компанию">
+               <option value="" disabled selected>Выберите страховую компанию</option>
+            </select>
+         </div>
+         <div class="block3">
+            <h2>Выберите медицинские услуги</h2>
+            <select id="med_service" style="color:black !important" onchange="selectService(this.options[this.selectedIndex]);">
+               <option value="" disabled selected>Выберите услугу</option>
+            </select>
+            <div id="select-med-service"></div>
+         </div>
+         <div id="selectedServices"></div>
+         <div id="checkedServices"></div>
+         <div class="check-block" id="check">
+            <button class="check-button" onclick="checkServices()">Проверить</button>
+         </div>
+         <!-- Modal HTML embedded directly into document -->
+         <div id="ex1" class="modal">
+            <h2>Полис с таким номером не обнаружен</h2>
+            <p>Попробуйте изменить данные</p>
+            <a href="#" rel="modal:close"><button class="ex1-btn">OK+</button></a>
+         </div>
+      </div>
+      <script src="script/jquery-3.3.1.js"></script>
+      <script src="js/main.js"></script>
+      <!-- jQuery Modal -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+      <script>
+         $( document ).ready(function() {
+             console.log( "ready!" );
+         
+             $.getJSON( "https://raw.githubusercontent.com/Anya994/medask/master/data.json", function( data ) {
+                 loadData(data);
+             });
+         
+             $.getJSON( "https://raw.githubusercontent.com/Anya994/medask/master/company.json", function( data ) {
+                 getCompanyList(data);
+             });
+         
+             $.getJSON( "https://raw.githubusercontent.com/Anya994/medask/master/services.json", function( data ) {
+                 getServicesList(data);
+             });
+         
+         });
+         
+      </script>
+   </body>
+</html>
